@@ -48,9 +48,11 @@ describe("Using Merkle tree", function () {
   it("should deploy", async () => {
     console.log("Airdrop address", usingMerkleTree.address);
 
-    await usingMerkleTree
-      .connect(alice)
-      .claim(merkleTree.getHexProof(leafNodes[0]));
+    await expect(
+      usingMerkleTree.connect(alice).claim(merkleTree.getHexProof(leafNodes[0]))
+    )
+      .emit(usingMerkleTree, "Claimed")
+      .withArgs(alice.address);
 
     await expect(
       usingMerkleTree.connect(alice).claim(merkleTree.getHexProof(leafNodes[0]))

@@ -27,9 +27,10 @@ contract UsingMerkleTree is Ownable {
 
         bytes32 leaf = keccak256(abi.encodePacked(msg.sender));
         require(MerkleProof.verify(_merkleProof, merkleRootHash, leaf), "Invalid proof");
-        whitelistClaimed[msg.sender] = true;
 
         // TODO: distribute the airdrop to user
+        
+        whitelistClaimed[msg.sender] = true;
 
         emit Claimed(msg.sender);
     }
